@@ -17,7 +17,7 @@ This document catalogs all deliverables and verifiable proof artifacts demonstra
 | **Mutation Test (BR1 Failure)** | `scripts/mutation_check.sh` | **VERIFIED** | `bash scripts/mutation_check.sh` (fails on dropped index, passes on restore) |
 | **Schema Dump** | `docs/schema_dump.sql` | **VERIFIED** | `pg_dump -U postgres --schema-only internship_db > docs/schema_dump.sql` |
 | **Environment Telemetry** | `reports/proof/environment.txt` | **VERIFIED** | Inspect versions (PostgreSQL 16.8, Git, Bash) |
-| **CI Automation** | `.github/workflows/ci.yml` | not run yet | GitHub Actions workflow trigger on push |
+| **CI Automation** | `.github/workflows/ci.yml` | **PASSED** (Run ID [40726832161](https://github.com/mohanasanthibattula-stack/internship-relational-model/actions/runs/40726832161)) | GitHub Actions CI workflow passed on `main` push (`gh run view 40726832161`) |
 
 ---
 
