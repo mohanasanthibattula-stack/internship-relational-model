@@ -1,0 +1,241 @@
+============================================================
+ STEP 1: Reset Database Schema
+============================================================
+==> Resetting database: internship_db on 127.0.0.1:5432 as postgres...
+ pg_terminate_backend 
+----------------------
+(0 rows)
+
+DROP DATABASE
+CREATE DATABASE
+==> Database internship_db successfully recreated.
+============================================================
+ STEP 2: Execute Database Migrations
+============================================================
+==> Running migrations on internship_db (127.0.0.1:5432)...
+CREATE TABLE
+==> [APPLYING] 001_people.sql...
+BEGIN
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1
+COMMIT
+    [SUCCESS]  001_people.sql applied successfully.
+==> [APPLYING] 002_internships.sql...
+BEGIN
+CREATE TABLE
+CREATE INDEX
+INSERT 0 1
+COMMIT
+    [SUCCESS]  002_internships.sql applied successfully.
+==> [APPLYING] 003_tasks_evaluations.sql...
+BEGIN
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1
+COMMIT
+    [SUCCESS]  003_tasks_evaluations.sql applied successfully.
+==> [APPLYING] 004_guards.sql...
+BEGIN
+CREATE FUNCTION
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/migrations/004_guards.sql:65: NOTICE:  trigger "trg_internships_guard" for relation "internships" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/migrations/004_guards.sql:102: NOTICE:  trigger "trg_tasks_guard" for relation "tasks" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE FUNCTION
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/migrations/004_guards.sql:165: NOTICE:  trigger "trg_prevent_delete_interns" for relation "interns" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/migrations/004_guards.sql:171: NOTICE:  trigger "trg_prevent_delete_internships" for relation "internships" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/migrations/004_guards.sql:177: NOTICE:  trigger "trg_prevent_delete_tasks" for relation "tasks" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/migrations/004_guards.sql:183: NOTICE:  trigger "trg_prevent_delete_evaluations" for relation "evaluations" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/migrations/004_guards.sql:189: NOTICE:  trigger "trg_prevent_delete_departments" for relation "departments" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/migrations/004_guards.sql:195: NOTICE:  trigger "trg_prevent_delete_mentors" for relation "mentors" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+INSERT 0 1
+COMMIT
+    [SUCCESS]  004_guards.sql applied successfully.
+==> All migrations up to date.
+============================================================
+ STEP 3: Populate Seed Data
+============================================================
+==> Seeding database internship_db (127.0.0.1:5432)...
+INSERT 0 3
+INSERT 0 4
+INSERT 0 5
+INSERT 0 5
+INSERT 0 2
+ complete_internship 
+---------------------
+ 
+(1 row)
+
+INSERT 0 1
+UPDATE 1
+INSERT 0 1
+INSERT 0 5
+ setval 
+--------
+      3
+(1 row)
+
+ setval 
+--------
+      4
+(1 row)
+
+ setval 
+--------
+      5
+(1 row)
+
+ setval 
+--------
+      6
+(1 row)
+
+ setval 
+--------
+      7
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+==> Verifying seed record counts:
+   entity    | count 
+-------------+-------
+ departments |     3
+ mentors     |     4
+ interns     |     5
+ internships |     6
+ tasks       |     7
+ evaluations |     1
+(6 rows)
+
+==> Seeding completed successfully.
+============================================================
+ STEP 4: Test Migration Repeatability (Idempotency Check)
+============================================================
+==> Running migrations on internship_db (127.0.0.1:5432)...
+NOTICE:  relation "schema_migrations" already exists, skipping
+CREATE TABLE
+    [SKIPPED] 001_people.sql (already applied, checksum matches)
+    [SKIPPED] 002_internships.sql (already applied, checksum matches)
+    [SKIPPED] 003_tasks_evaluations.sql (already applied, checksum matches)
+    [SKIPPED] 004_guards.sql (already applied, checksum matches)
+==> All migrations up to date.
+============================================================
+ STEP 5: Run Invariant & Negative Test Suite
+============================================================
+BEGIN
+CREATE PROCEDURE
+CREATE PROCEDURE
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:18: NOTICE:  PASS: BR1: Second ACTIVE internship for same intern rejected (Received expected SQLSTATE 23505)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:30: NOTICE:  PASS: BR2: Wrong-department mentor rejected by composite FK (Received expected SQLSTATE 23503)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:38: NOTICE:  PASS: BR2: Orphan mentor rejected by foreign key (Received expected SQLSTATE 23503)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:50: NOTICE:  PASS: BR3: ACTIVE status without start_date rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:58: NOTICE:  PASS: BR3: APPLIED status with end_date rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:66: NOTICE:  PASS: BR3: End date prior to start date rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:74: NOTICE:  PASS: BR3: Unknown status rejected by domain CHECK constraint (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:82: NOTICE:  PASS: BR3: Direct insert as COMPLETED rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:90: NOTICE:  PASS: BR3: Direct insert as TERMINATED rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:97: NOTICE:  PASS: BR3: Modifying terminal state TERMINATED to ACTIVE rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:104: NOTICE:  PASS: BR3: Regression from ACTIVE to APPLIED rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:116: NOTICE:  PASS: BR4: Orphan task rejected by foreign key (Received expected SQLSTATE 23503)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:124: NOTICE:  PASS: BR4: Task on COMPLETED internship rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:132: NOTICE:  PASS: BR4: Task on TERMINATED internship rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:140: NOTICE:  PASS: BR4: Task on APPLIED internship rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:147: NOTICE:  PASS: BR4: Moving task to another internship rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:155: NOTICE:  PASS: BR4: Task due_on prior to assigned_on rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:163: NOTICE:  PASS: BR4: Unknown task status rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:171: NOTICE:  PASS: BR4: SUBMITTED task without submitted_on rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:179: NOTICE:  PASS: BR4: ASSIGNED task with submitted_on rejected (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:186: NOTICE:  PASS: BR4: Completion blocked by open ASSIGNED task (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:193: NOTICE:  PASS: BR4: Completion blocked by open SUBMITTED task (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:212: NOTICE:  PASS: Failed complete_internship left internship 4 unchanged (status=ACTIVE, end_date=NULL)
+DO
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:224: NOTICE:  PASS: BR5: Evaluation on ACTIVE internship rejected (Received expected SQLSTATE 23503)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:232: NOTICE:  PASS: BR5: Evaluation on TERMINATED internship rejected (Received expected SQLSTATE 23503)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:240: NOTICE:  PASS: BR5: Orphan evaluation rejected by foreign key (Received expected SQLSTATE 23503)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:248: NOTICE:  PASS: BR5: Duplicate evaluation on same internship rejected (Received expected SQLSTATE 23505)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:256: NOTICE:  PASS: BR5: Evaluation score 0 rejected by CHECK constraint (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:264: NOTICE:  PASS: BR5: Evaluation score 6 rejected by CHECK constraint (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:271: NOTICE:  PASS: BR5: Reopening an evaluated completed internship rejected by ON UPDATE RESTRICT (Received expected SQLSTATE 23503)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:281: NOTICE:  PASS: BR6: Hard delete of intern prohibited (Received expected SQLSTATE 23001)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:287: NOTICE:  PASS: BR6: Hard delete of internship prohibited (Received expected SQLSTATE 23001)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:293: NOTICE:  PASS: BR6: Hard delete of task prohibited (Received expected SQLSTATE 23001)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:299: NOTICE:  PASS: BR6: Hard delete of evaluation prohibited (Received expected SQLSTATE 23001)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:305: NOTICE:  PASS: BR6: Hard delete of department prohibited (Received expected SQLSTATE 23001)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:311: NOTICE:  PASS: BR6: Hard delete of mentor prohibited (Received expected SQLSTATE 23001)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:321: NOTICE:  PASS: General: Duplicate department name rejected (Received expected SQLSTATE 23505)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:328: NOTICE:  PASS: General: Duplicate mentor email rejected (Received expected SQLSTATE 23505)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:335: NOTICE:  PASS: General: Duplicate intern email rejected (Received expected SQLSTATE 23505)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:342: NOTICE:  PASS: General: Malformed email rejected by regex CHECK (Received expected SQLSTATE 23514)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:349: NOTICE:  PASS: General: Orphan internship (non-existent intern_id) rejected by FK (Received expected SQLSTATE 23503)
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:360: NOTICE:  PASS (Positive Control): PC1: Intern with completed internship can start a new active internship
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:369: NOTICE:  PASS (Positive Control): PC2: Updating open tasks to closed states allows completion
+CALL
+psql:C:/Users/mohan/.gemini/antigravity/scratch/internship-relational-model/tests/10_negative.sql:376: NOTICE:  PASS (Positive Control): PC3: Evaluation succeeds on legitimately completed internship
+CALL
+ROLLBACK
+============================================================
+ ALL TESTS PASSED: Relational invariants strictly enforced!
+============================================================

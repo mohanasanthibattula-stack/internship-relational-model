@@ -1,0 +1,10 @@
+   entity    | count 
+-------------+-------
+ departments |     3
+ mentors     |     4
+ interns     |     5
+ internships |     6
+ tasks       |     7
+ evaluations |     1
+(6 rows)
+

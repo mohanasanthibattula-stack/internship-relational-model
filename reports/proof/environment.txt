@@ -1,0 +1,8 @@
+=== Execution Environment Summary ===
+Generated At: 2026-10-28T21:58:00+05:30
+Host Operating System: Windows 11 (MSYS2 / Git Bash)
+PostgreSQL Version: PostgreSQL 16.8, compiled by Visual C++ build 1942, 64-bit
+psql Client: 16.8
+pg_dump Client: 16.8
+Git Version: 2.56.0.windows.1
+Bash Version: 5.2.37(1)-release

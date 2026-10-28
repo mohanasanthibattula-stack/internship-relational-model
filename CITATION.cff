@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Asanthibattula"
+    given-names: "Mohan"
+title: "RabTech Internship Relational Model: Business Rules to Executable Relational Invariants"
+version: 1.0.0
+date-released: 2026-10-25
+url: "https://github.com/mohanasanthibattula-stack/internship-relational-model"

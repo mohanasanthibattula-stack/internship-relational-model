@@ -1,0 +1,21 @@
+# Environment and temporary files
+.env
+*.log
+*.tmp
+*.bak
+
+# PostgreSQL data directories
+postgres-data/
+pgdata/
+.data/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
